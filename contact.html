@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>お問い合わせ | SKy Navia</title>
+  <meta name="description" content="SKy Naviaへのお問い合わせ・見積依頼・買取依頼はこちらから。電子部品・半導体の調達に関するご相談をお待ちしています。">
+  <link rel="stylesheet" href="/test/assets/css/style.css">
+</head>
+<body>
+
+  <div id="header-placeholder"></div>
+
+  <main>
+
+    <div class="page-header">
+      <div class="container">
+        <p class="section-label page-header__label">Contact</p>
+        <h1 class="page-header__title heading-en">お問い合わせ</h1>
+        <p class="page-header__subtitle">調達のご相談・見積依頼・買取依頼など、お気軽にご連絡ください</p>
+      </div>
+    </div>
+
+    <section class="section">
+      <div class="container">
+        <div class="contact-layout">
+
+          <!-- Form -->
+          <div class="contact-form-wrap reveal">
+            <div class="form-tabs">
+              <button class="form-tab active" data-tab="inquiry">お問い合わせ</button>
+              <button class="form-tab" data-tab="quote">見積依頼</button>
+              <button class="form-tab" data-tab="purchase">買取依頼</button>
+            </div>
+
+            <!-- Tab: Inquiry -->
+            <div class="form-panel active" id="tab-inquiry">
+              <form>
+                <input type="text" name="sn_hp" style="display:none;" tabindex="-1" autocomplete="off">
+                <div class="form-row">
+                  <div class="form-group">
+                    <label class="form-label">お名前 <span class="required">*</span></label>
+                    <input type="text" class="form-control" placeholder="山田 太郎" required>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">会社名</label>
+                    <input type="text" class="form-control" placeholder="株式会社○○">
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label class="form-label">メールアドレス <span class="required">*</span></label>
+                    <input type="email" class="form-control" placeholder="your@company.com" required>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">電話番号 <span class="required">*</span></label>
+                    <input type="tel" class="form-control" placeholder="03-0000-0000" required>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">お問い合わせ種別 <span class="required">*</span></label>
+                  <select class="form-control" required>
+                    <option value="">選択してください</option>
+                    <option>調達依頼・見積り</option>
+                    <option>在庫買取</option>
+                    <option>その他</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">お問い合わせ内容</label>
+                  <textarea class="form-control" rows="5" placeholder="お問い合わせ内容をご記入ください"></textarea>
+                </div>
+                <div class="form-submit">
+                  <button type="submit" class="btn btn--primary btn--lg">送信する</button>
+                </div>
+                <p class="form-note">※ビジネスメールアドレスにてご送信ください。フリーメール（Gmail等）はご利用いただけません。</p>
+              </form>
+            </div>
+
+            <!-- Tab: Quote -->
+            <div class="form-panel" id="tab-quote">
+              <form>
+                <input type="text" name="sn_hp" style="display:none;" tabindex="-1" autocomplete="off">
+                <div class="form-row">
+                  <div class="form-group">
+                    <label class="form-label">お名前 <span class="required">*</span></label>
+                    <input type="text" class="form-control" placeholder="山田 太郎" required>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">会社名</label>
+                    <input type="text" class="form-control" placeholder="株式会社○○">
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label class="form-label">メールアドレス <span class="required">*</span></label>
+                    <input type="email" class="form-control" placeholder="your@company.com" required>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">電話番号 <span class="required">*</span></label>
+                    <input type="tel" class="form-control" placeholder="03-0000-0000" required>
+                  </div>
+                </div>
+                <div id="quote-items-container">
+                  <div class="quote-item-row" style="display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:12px;align-items:end;margin-bottom:12px;">
+                    <div class="form-group" style="margin:0;">
+                      <label class="form-label">品番・型番 <span class="required">*</span></label>
+                      <input type="text" class="form-control" name="pn[]" placeholder="例：LM358N" required>
+                    </div>
+                    <div class="form-group" style="margin:0;">
+                      <label class="form-label">メーカー</label>
+                      <input type="text" class="form-control" name="maker[]" placeholder="例：TI">
+                    </div>
+                    <div class="form-group" style="margin:0;">
+                      <label class="form-label">数量</label>
+                      <input type="number" class="form-control" name="qty[]" placeholder="100" min="1">
+                    </div>
+                    <div></div>
+                  </div>
+                </div>
+                <button type="button" class="btn btn--outline btn--sm" id="btn-add-row" style="margin-bottom:20px;">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+                  </svg>
+                  品番を追加
+                </button>
+                <div class="form-group">
+                  <label class="form-label">希望納期</label>
+                  <input type="text" class="form-control" placeholder="例：2026年4月末">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">その他ご要望</label>
+                  <textarea class="form-control" rows="3" placeholder="品質要件・認証要件など"></textarea>
+                </div>
+                <div class="form-submit">
+                  <button type="submit" class="btn btn--primary btn--lg">見積依頼を送信</button>
+                </div>
+                <p class="form-note">※ビジネスメールアドレスにてご送信ください。</p>
+              </form>
+            </div>
+
+            <!-- Tab: Purchase -->
+            <div class="form-panel" id="tab-purchase">
+              <form>
+                <input type="text" name="sn_hp" style="display:none;" tabindex="-1" autocomplete="off">
+                <div class="form-row">
+                  <div class="form-group">
+                    <label class="form-label">お名前 <span class="required">*</span></label>
+                    <input type="text" class="form-control" placeholder="山田 太郎" required>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">会社名</label>
+                    <input type="text" class="form-control" placeholder="株式会社○○">
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label class="form-label">メールアドレス <span class="required">*</span></label>
+                    <input type="email" class="form-control" placeholder="your@company.com" required>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">電話番号 <span class="required">*</span></label>
+                    <input type="tel" class="form-control" placeholder="03-0000-0000" required>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">買取希望品の内容 <span class="required">*</span></label>
+                  <textarea class="form-control" rows="5" placeholder="品番・メーカー・数量・状態（未使用/使用済み）などをご記入ください。" required></textarea>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">保管状況・その他</label>
+                  <textarea class="form-control" rows="3" placeholder="保管状況・梱包状態・希望の取引方法など"></textarea>
+                </div>
+                <div class="form-submit">
+                  <button type="submit" class="btn btn--primary btn--lg">買取依頼を送信</button>
+                </div>
+                <p class="form-note">※ビジネスメールアドレスにてご送信ください。</p>
+              </form>
+            </div>
+
+          </div>
+
+          <!-- Contact Info -->
+          <div class="contact-info reveal reveal-delay-1">
+            <div class="contact-info-card">
+              <div class="contact-info-card__icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                  <polyline points="22,6 12,13 2,6"/>
+                </svg>
+              </div>
+              <h3 class="contact-info-card__title">メールでのお問い合わせ</h3>
+              <p class="contact-info-card__body">
+                <a href="mailto:service_01@sc-life.com">service_01@sc-life.com</a><br>
+                <span style="font-size:0.8125rem;color:var(--text-light);">営業時間内に返信いたします</span>
+              </p>
+            </div>
+
+            <div class="contact-info-card">
+              <div class="contact-info-card__icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"/>
+                  <polyline points="12 6 12 12 16 14"/>
+                </svg>
+              </div>
+              <h3 class="contact-info-card__title">営業時間</h3>
+              <p class="contact-info-card__body">
+                月〜金曜日 9:00〜18:00<br>
+                <span style="font-size:0.8125rem;color:var(--text-light);">土日祝日・年末年始を除く</span>
+              </p>
+            </div>
+
+            <div class="contact-info-card">
+              <div class="contact-info-card__icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"/>
+                  <line x1="2" y1="12" x2="22" y2="12"/>
+                  <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                </svg>
+              </div>
+              <h3 class="contact-info-card__title">対応言語</h3>
+              <p class="contact-info-card__body">
+                🇯🇵 日本語 &nbsp;/&nbsp; 🇺🇸 English<br>
+                🇨🇳 中文 &nbsp;/&nbsp; 🇰🇷 한국어
+              </p>
+            </div>
+
+            <div style="background:var(--off-white);border:1px solid var(--border);border-radius:var(--radius-lg);padding:24px;">
+              <p style="font-size:0.8125rem;color:var(--text-light);line-height:1.7;">
+                ⚠️ <strong style="color:var(--text-mid);">フリーメールについて</strong><br>
+                スパム対策のため、Gmail・Yahoo・Hotmail等のフリーメールアドレスからのお問い合わせはお受けできません。社用・学校等のメールアドレスをご利用ください。
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <div id="footer-placeholder"></div>
+  <script src="/test/assets/js/main.js"></script>
+  <script>
+    // Add row button for quote form
+    document.addEventListener('click', function(e) {
+      if (e.target.closest('#btn-add-row')) {
+        const container = document.getElementById('quote-items-container');
+        if (!container) return;
+        const row = document.createElement('div');
+        row.className = 'quote-item-row';
+        row.style.cssText = 'display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:12px;align-items:center;margin-bottom:12px;';
+        row.innerHTML = `
+          <input type="text" class="form-control" name="pn[]" placeholder="品番・型番">
+          <input type="text" class="form-control" name="maker[]" placeholder="メーカー">
+          <input type="number" class="form-control" name="qty[]" placeholder="数量" min="1">
+          <button type="button" onclick="this.closest('.quote-item-row').remove()" style="padding:8px;color:var(--text-light);border:none;background:none;cursor:pointer;font-size:1.2rem;">×</button>
+        `;
+        container.appendChild(row);
+      }
+    });
+  </script>
+</body>
+</html>

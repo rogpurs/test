@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>在庫検索 | SKy Navia</title>
+  <meta name="description" content="SKy Naviaの在庫検索ページ。品番・型番・メーカー名で電子部品・半導体の在庫をお探しいただけます。">
+  <link rel="stylesheet" href="/test/assets/css/style.css">
+  <style>
+    .search-header { background: var(--navy); padding: 56px 0; }
+    .search-header .search-box { margin-top: 0; }
+    .filter-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 20px 0;
+      border-bottom: 1px solid var(--border);
+      flex-wrap: wrap;
+    }
+    #result-count { font-size: 0.9375rem; color: var(--text-mid); }
+    .pagination {
+      display: flex;
+      gap: 4px;
+      justify-content: center;
+      margin-top: 40px;
+    }
+    .pagination a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px; height: 40px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      font-size: 0.875rem;
+      color: var(--text-mid);
+      transition: all var(--transition);
+    }
+    .pagination a:hover, .pagination a.active {
+      background: var(--navy);
+      color: var(--white);
+      border-color: var(--navy);
+    }
+    .quote-bar {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      background: var(--navy);
+      color: var(--white);
+      padding: 16px 40px;
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      z-index: 900;
+      flex-wrap: wrap;
+    }
+    .quote-bar__text { font-size: 0.9375rem; }
+    .quote-bar__count {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px; height: 24px;
+      background: var(--accent);
+      border-radius: 50%;
+      font-size: 0.75rem;
+      font-weight: 700;
+      margin-left: 8px;
+    }
+    .quote-bar__actions { display: flex; gap: 8px; }
+    @media(max-width:767px){
+      .quote-bar{ padding: 12px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="header-placeholder"></div>
+
+  <main>
+
+    <!-- Search Header -->
+    <div class="search-header">
+      <div class="container">
+        <h1 style="color:var(--white);font-size:clamp(1.5rem,3vw,2rem);margin-bottom:12px;" class="heading-ja reveal">在庫検索</h1>
+        <p style="color:rgba(255,255,255,0.65);margin-bottom:28px;" class="reveal reveal-delay-1">品番・型番・メーカー名で在庫をお探しいただけます</p>
+        <form class="search-form reveal reveal-delay-2">
+          <div class="search-box">
+            <input
+              class="search-box__input"
+              type="text"
+              name="q"
+              placeholder="例：LM358N、74HC245、Renesas…"
+              autocomplete="off"
+            >
+            <button type="submit" class="search-box__btn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+              </svg>
+              検索
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Results -->
+    <section class="section section--off-white">
+      <div class="container">
+        <div class="filter-bar">
+          <p id="result-count">全20件</p>
+          <p style="font-size:0.8125rem;color:var(--text-light);">見つからない場合は <a href="/test/contact.html">お問い合わせ</a> ください</p>
+        </div>
+
+        <div style="overflow-x:auto;margin-top:8px;">
+          <table class="inventory-table">
+            <thead>
+              <tr>
+                <th>品番 / Part Number</th>
+                <th>メーカー</th>
+                <th>説明</th>
+                <th>在庫状態</th>
+                <th>アクション</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td data-label="品番"><span class="inventory-table__pn">LM358N</span></td>
+                <td data-label="メーカー">Texas Instruments</td>
+                <td data-label="説明">デュアルオペアンプ DIP-8</td>
+                <td data-label="在庫状態"><span class="badge badge--success">在庫あり</span></td>
+                <td data-label="アクション">
+                  <div class="inventory-table__actions">
+                    <button class="btn btn--primary btn--sm btn-add-quote" data-pn="LM358N">まとめて見積</button>
+                    <a href="/test/contact.html?tab=quote" class="btn btn--outline btn--sm">見積依頼</a>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td data-label="品番"><span class="inventory-table__pn">74HC245DW</span></td>
+                <td data-label="メーカー">NXP Semiconductors</td>
+                <td data-label="説明">8ビット双方向バストランシーバ SOP-20</td>
+                <td data-label="在庫状態"><span class="badge badge--success">在庫あり</span></td>
+                <td data-label="アクション">
+                  <div class="inventory-table__actions">
+                    <button class="btn btn--primary btn--sm btn-add-quote" data-pn="74HC245DW">まとめて見積</button>
+                    <a href="/test/contact.html?tab=quote" class="btn btn--outline btn--sm">見積依頼</a>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td data-label="品番"><span class="inventory-table__pn">ATmega328P-PU</span></td>
+                <td data-label="メーカー">Microchip / Atmel</td>
+                <td data-label="説明">8ビットマイクロコントローラ DIP-28</td>
+                <td data-label="在庫状態"><span class="badge badge--warning">残りわずか</span></td>
+                <td data-label="アクション">
+                  <div class="inventory-table__actions">
+                    <button class="btn btn--primary btn--sm btn-add-quote" data-pn="ATmega328P-PU">まとめて見積</button>
+                    <a href="/test/contact.html?tab=quote" class="btn btn--outline btn--sm">見積依頼</a>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td data-label="品番"><span class="inventory-table__pn">STM32F103C8T6</span></td>
+                <td data-label="メーカー">STMicroelectronics</td>
+                <td data-label="説明">ARM Cortex-M3 マイコン LQFP-48</td>
+                <td data-label="在庫状態"><span class="badge badge--success">在庫あり</span></td>
+                <td data-label="アクション">
+                  <div class="inventory-table__actions">
+                    <button class="btn btn--primary btn--sm btn-add-quote" data-pn="STM32F103C8T6">まとめて見積</button>
+                    <a href="/test/contact.html?tab=quote" class="btn btn--outline btn--sm">見積依頼</a>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td data-label="品番"><span class="inventory-table__pn">R8C/3MK</span></td>
+                <td data-label="メーカー">Renesas Electronics</td>
+                <td data-label="説明">16ビットマイクロコントローラ（廃止品）</td>
+                <td data-label="在庫状態"><span class="badge badge--gold">要お問合せ</span></td>
+                <td data-label="アクション">
+                  <div class="inventory-table__actions">
+                    <button class="btn btn--primary btn--sm btn-add-quote" data-pn="R8C/3MK">まとめて見積</button>
+                    <a href="/test/contact.html?tab=quote" class="btn btn--outline btn--sm">見積依頼</a>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td data-label="品番"><span class="inventory-table__pn">MAX232CPE</span></td>
+                <td data-label="メーカー">Maxim Integrated</td>
+                <td data-label="説明">RS-232 ラインドライバ/レシーバ DIP-16</td>
+                <td data-label="在庫状態"><span class="badge badge--success">在庫あり</span></td>
+                <td data-label="アクション">
+                  <div class="inventory-table__actions">
+                    <button class="btn btn--primary btn--sm btn-add-quote" data-pn="MAX232CPE">まとめて見積</button>
+                    <a href="/test/contact.html?tab=quote" class="btn btn--outline btn--sm">見積依頼</a>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td data-label="品番"><span class="inventory-table__pn">AD7606BSTZ</span></td>
+                <td data-label="メーカー">Analog Devices</td>
+                <td data-label="説明">8チャネル16ビットADC LQFP-64</td>
+                <td data-label="在庫状態"><span class="badge badge--warning">残りわずか</span></td>
+                <td data-label="アクション">
+                  <div class="inventory-table__actions">
+                    <button class="btn btn--primary btn--sm btn-add-quote" data-pn="AD7606BSTZ">まとめて見積</button>
+                    <a href="/test/contact.html?tab=quote" class="btn btn--outline btn--sm">見積依頼</a>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td data-label="品番"><span class="inventory-table__pn">FPGA XC7A35T</span></td>
+                <td data-label="メーカー">Xilinx / AMD</td>
+                <td data-label="説明">Artix-7 FPGA CSG324</td>
+                <td data-label="在庫状態"><span class="badge badge--success">在庫あり</span></td>
+                <td data-label="アクション">
+                  <div class="inventory-table__actions">
+                    <button class="btn btn--primary btn--sm btn-add-quote" data-pn="FPGA XC7A35T">まとめて見積</button>
+                    <a href="/test/contact.html?tab=quote" class="btn btn--outline btn--sm">見積依頼</a>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td data-label="品番"><span class="inventory-table__pn">LTC3780EGN</span></td>
+                <td data-label="メーカー">Linear Technology</td>
+                <td data-label="説明">高効率 Buck-Boost コントローラ</td>
+                <td data-label="在庫状態"><span class="badge badge--gold">要お問合せ</span></td>
+                <td data-label="アクション">
+                  <div class="inventory-table__actions">
+                    <button class="btn btn--primary btn--sm btn-add-quote" data-pn="LTC3780EGN">まとめて見積</button>
+                    <a href="/test/contact.html?tab=quote" class="btn btn--outline btn--sm">見積依頼</a>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td data-label="品番"><span class="inventory-table__pn">MPC5748GEV1R</span></td>
+                <td data-label="メーカー">NXP Semiconductors</td>
+                <td data-label="説明">車載用マルチコアマイコン</td>
+                <td data-label="在庫状態"><span class="badge badge--success">在庫あり</span></td>
+                <td data-label="アクション">
+                  <div class="inventory-table__actions">
+                    <button class="btn btn--primary btn--sm btn-add-quote" data-pn="MPC5748GEV1R">まとめて見積</button>
+                    <a href="/test/contact.html?tab=quote" class="btn btn--outline btn--sm">見積依頼</a>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="pagination reveal">
+          <a href="#" class="active">1</a>
+          <a href="#">2</a>
+          <a href="#">3</a>
+          <a href="#">…</a>
+          <a href="#">10</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Not found CTA -->
+    <section class="section--compact section">
+      <div class="container">
+        <div style="background:var(--off-white);border:1px solid var(--border);border-radius:var(--radius-xl);padding:40px;text-align:center;" class="reveal">
+          <h3 style="font-size:1.125rem;margin-bottom:12px;" class="heading-ja">お探しの部品が見つかりませんでしたか？</h3>
+          <p style="color:var(--text-mid);margin-bottom:24px;font-size:0.9375rem;">廃止品・製造中止品・取扱いのない部品でも、お気軽にお問い合わせください。緊急調達も対応します。</p>
+          <a href="/test/contact.html" class="btn btn--primary">調達依頼・お問い合わせ</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Floating Quote Bar -->
+  <div class="quote-bar" id="quote-bar">
+    <p class="quote-bar__text">
+      まとめて見積もり
+      <span class="quote-bar__count" id="quote-count">0</span>件 選択中
+    </p>
+    <div class="quote-bar__actions">
+      <button class="btn btn--outline" id="btn-quote-clear" style="border-color:rgba(255,255,255,0.3);color:white;">クリア</button>
+      <button class="btn btn--white" id="btn-quote-submit">見積依頼へ</button>
+    </div>
+  </div>
+
+  <div id="footer-placeholder"></div>
+  <script src="/test/assets/js/main.js"></script>
+</body>
+</html>
